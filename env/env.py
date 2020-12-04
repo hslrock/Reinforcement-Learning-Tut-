@@ -14,7 +14,7 @@ class Grid_game(object):
         
         self.policy=np.zeros((4,grid_x,grid_y))+0.25
         for i in self.TERMINAL_STATE_POS:
-            print(i)
+
             self.policy[0:4,i[0],i[1]]=0
         self.vst=np.zeros((grid_x,grid_y))   #Action State Value
         
@@ -72,17 +72,18 @@ class Grid_game(object):
                         2:self.player.east,
                         3:self.player.west}
         if action==None:
-            rand_val=random.random()
+
             x,y=self.player.curpos
             action_index=random.choice(list(enumerate(self.policy[0:4,x,y])))[0]
             self.player.oldpos=self.player.curpos
             move[action_index]()
+            action=action_index
         else:
             move[action]()
         self.check_valid()
         self.update_state()
         self.state=self.end_condition()
-        return self.state,self.player.curpos,self.fix_reward_val
+        return self.state,self.player.curpos,self.fix_reward_val,action
             
         
     def get_asv():
