@@ -14,8 +14,9 @@ class Grid_game(object):
         
         self.policy=np.zeros((4,grid_x,grid_y))+0.25
         for i in self.TERMINAL_STATE_POS:
-
+            self.current_state[i[0]][i[1]]=-1
             self.policy[0:4,i[0],i[1]]=0
+            
         self.vst=np.zeros((grid_x,grid_y))   #Action State Value
         
         self.ast=np.zeros((4,grid_x,grid_y))
@@ -72,9 +73,9 @@ class Grid_game(object):
                         2:self.player.east,
                         3:self.player.west}
         if action==None:
-            rand_val=random.random()
-            x,y=self.player.curpos
-            action_index=random.choice(list(enumerate(self.policy[0:4,x,y])))[0]
+
+            y,x=self.player.curpos
+            action_index=np.random.choice(4, p=self.policy[0:4,y,x])
             self.player.oldpos=self.player.curpos
             move[action_index]()
             action=action_index
