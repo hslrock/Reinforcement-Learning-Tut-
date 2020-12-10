@@ -59,7 +59,10 @@ class Grid_game(object):
         self.current_state[self.player.curpos[0]][self.player.curpos[1]]=1
     def set_pos(self,y,x):
         self.player.curpos=[y,x]
+        
         self.update_state()
+        for i in self.TERMINAL_STATE_POS:
+            self.current_state[i[0]][i[1]]=-1
         self.state=self.end_condition()
     def check_valid(self):
         if self.player.curpos[0]==self.grid_y:
