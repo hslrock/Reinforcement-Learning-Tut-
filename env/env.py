@@ -44,9 +44,12 @@ class Grid_game(object):
         self.update_state()
         for i in self.TERMINAL_STATE_POS:
             self.current_state[i[0]][i[1]]=-1
-            self.policy[0:4,i[0],i[1]]=0
         self.state=False
             
+        self.initial_board=np.zeros((self.grid_x,self.grid_y))
+        for i in self.TERMINAL_STATE_POS:
+            self.initial_board[i[0]][i[1]]=-1
+        
         
     def reset(self):
         self.current_state=np.zeros((self.grid_x,self.grid_y))
